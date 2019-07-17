@@ -1,6 +1,6 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-//đường kính của ball
+//Ball radius
 var ballRadius = 20;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -10,28 +10,28 @@ var dx = 3;
 var dy = -3;
 var timeOut = 10;
 
-//Hàm random số bất kỳ trong khoảng max min
+//function get random integer
 function getRandomInteger(max, min) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-//Hàm vẽ ball
+//function draw ball
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-    //màu của ball
+    //color of the ball
     ctx.fillStyle = "black";
     ctx.fill();
     ctx.closePath();
 }
 
-//Sự kiện khi nhấn nút xuống
+//Event when pressing down button 
 document.addEventListener("keydown", keyHandler, false);
 
 function keyHandler(e) {
     var kCode = e.keyCode;
     switch (kCode) {
-        //KeyCode = 38 là nút Up trên bàn phím
+        //KeyCode = 38 is the TOP button on the keyboard
         case 38: {
             timeOut -= 5;
             if (timeOut < 0) {
@@ -39,7 +39,7 @@ function keyHandler(e) {
             }
             break;
         }
-        //KeyCode = 40 là nút Down trên bàn phím
+        //KeyCode = 40 is the BOTTOM button on the keyboard
         case 40: {
             timeOut += 5;
             if (timeOut > 15) {
@@ -51,15 +51,15 @@ function keyHandler(e) {
     }
 }
 
-//Hàm di chuyển quả bóng 
+//function move Ball
 function moveBall() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
-    //Khi quả bóng chạm 2 góc trên và dưới
+    //When the ball hits the top and bottom two corners
     if (y + dy < ballRadius || y + dy > canvas.height - ballRadius) {
         dy = -dy;
     }
-    //Khi quả bóng chạm 2 góc trái và phải
+    //When the ball hits the left and right two corners
     else if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
         dx = -dx;
     }
@@ -69,7 +69,7 @@ function moveBall() {
     console.log(timeOut);
 }
 
-//Load lại trang khi resize width
+//Load the page when resize width 
 window.onresize = function () {
     location.reload();
 }
